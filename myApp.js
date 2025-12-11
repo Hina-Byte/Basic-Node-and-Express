@@ -3,6 +3,10 @@ require('dotenv').config();
 let express = require('express');
 let app = express();
 
+let bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
 console.log("Hello World");
 
 app.use((req, res, next) => {
@@ -39,6 +43,11 @@ app.route("/name")
   .get((req, res) => {
     const first = req.query.first || "";
     const last = req.query.last || "";
+    res.json({ name: `${first} ${last}` });
+  })
+  .post((req, res) => {
+    const first = req.body.first || "";
+    const last = req.body.last || "";
     res.json({ name: `${first} ${last}` });
   });
 
